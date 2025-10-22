@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/app
+    ports:
+      - "7870:7860"  # Expose Gradio on port 7860
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://rag_role:mypassword@db:5432/rag_db
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: rag_role
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: rag_db
+    ports:
+      - "5432:5432"

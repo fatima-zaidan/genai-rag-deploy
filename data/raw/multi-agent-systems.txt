@@ -1,0 +1,45 @@
+Multi-Agent System: An Overview
+In the context of language models and AI, a multi-agent system involves multiple independent actors, each powered by language models, collaborating in a specific way. These agents have their own persona/role, and a context that is define by the prompts on a specific language model. Each agent has access to various tools, to help execute the task given to the agent. Multiple agents bring different perspectives and helps make better decisions.
+
+Multi-agent systems differ from single-agent systems primarily in the distribution of decision-making and interaction within a system. In a single-agent system, a centralized agent makes all decisions, while other agents act as remote slaves. This single agent, normally decides, based on the context. This might miss out the other perspectives/possibilities. On the other hand, multi-agent systems involve multiple interacting intelligent agents, each capable of making decisions and influencing the environment.
+
+The idea behind multi-agent architecture is to create agents, with different contexts to bring in different perspective, by the role they play. Though they might be using the same LLM, but due to the role, goal and the context that is defined for that agent, they behave different. Just like a member in the team.
+
+Imagine you have an agent, that generates application code, another agent that reviews the code and they both get into a chat with each other to improve the code. Over a defined set of iterations, these two agents will come up with the best results. This approach has a huge potential, to not only generate a more satisfactory output, but also reduce the effects of Hallucinations, Bias etc. Defining the right context, prompt, with right model, in a multi-agent architecture is very critical. Strong prompt engineering skills help in designing an impactful multi-agent application.
+
+Benefits of Multi-Agent Designs:
+
+Separation of concerns: Each agent can have its own instructions and few-shot examples, powered by separate fine-tuned language models, and supported by various tools. Dividing tasks among agents leads to better results. Each agent can focus on a specific task rather than selecting from a multitude of tools.
+Modularity: Multi-agent designs allow breaking down complex problems into manageable units of work, targeted by specialized agents and language models. Multi-agent designs allow you to evaluate and improve each agent independently without disrupting the entire application. Grouping tools and responsibilities can lead to better outcomes. Agents are more likely to succeed when focused on specific tasks.
+Diversity: Bring in strong diversity in the agent-teams to bring in different perspectives and refine the output and avoid Hallucinations & Bias. (Like a typical human team).
+Reusability: Once the agents are built, there is an opportunity to reuse these agents for different use cases, and think of an ecosystem of agents, that can come together to solve the problem, with a proper choreography/orchestration framework (such as AutoGen, Crew.ai etc)
+Typical multi-Agent architecture consists of the following components.
+
+
+
+Agents: Intelligent Agents have a very clear role, persona and context, and runs on an LLM.
+Connections: How are these agents connected?
+Orchestration: Orchestration defines how these agents work together (Sequential, Hierarchical, Bi-directional chat etc)
+Human: We will require Human in the middle in most use cases, to help take decisions and evaluate the results.
+Tools: Tools that these agents use to run specific tasks such as search the web for more information, or generate/read the document, or upload the generated code to GitHub etc.
+LLM: OfCourse this is all backed by specific language models, that the agent uses for inference.
+In summary, multi-agent architectures empower collaboration among independent language model-powered agents, leading to more effective and modular solutions.
+
+Get A B Vijay Kumar’s stories in your inbox
+Join Medium for free to get updates from this writer.
+
+Enter your email
+Subscribe
+There are various frameworks that allow us to build these multi-agent applications. The following are some of these frameworks. However, this is a evolving field, and lot of these frameworks are changing by the day, and new ones are being introduced. But all of them provide easier ways to build and manage multiple agents. In future blogs, we will be building some applications on these frameworks.
+
+OpenAI Assistant: OpenAI Assistant is one of the first frameworks to support a multi-agent architecture. This framework enables the creation of persistent, multimodal multi-agent systems that can interact with users over extended periods. Agents can access files and tools, including a Code Interpreter, and communicate with other agents to perform tasks. This is ideal for applications that require long-term collaboration/interaction.
+
+Autogen: Autogen is one of the popular emerging frameworks by Microsoft. This is an open-source framework, which also comes up with a very intuitive UI based development tool called Autogen Studio. for building robust multi-agent applications. It allows the creation of LLM agents that use Large Language Models for reasoning and action, which can be augmented with information from custom sources. It provides a very well-defined orchestrator-based approach towards multi-agent architecture.
+
+Dragonscale’s Multi-Agent Systems: Focuses on integrating various generative AI models and tools to create intelligent systems capable of managing tasks ranging from simple to highly complex, especially in dynamic business environments. This is suitable for dynamic business environments requiring adaptability. This provides a framework to manage complex tasks.
+
+CrewAI: CrewAI is one of the emerging frameworks, which is gaining popularity, and is being compared with Autogen. CrewAI provides a very good framework for orchestrating role-playing, autonomous AI agents. CrewAI fosters collaborative intelligence, empowering agents to work together seamlessly to tackle complex tasks. It is designed to enable AI agents to assume roles, share goals, and operate in a cohesive unit. This is one of my favourite frameworks, I am watching this framework closely, and I will blog about the applications, I have built on CrewAI in my next blog.
+
+LangGraph: LangGraph is another very powerful and promising multi-agent framework for building stateful, multi-actor applications with LLMs, built on top of LangChain. It extends the LangChain Expression Language with the ability to coordinate multiple chains (or actors) across multiple steps of computation in a cyclic manner, inspired by Pregel and Apache Beam. LangGraph has the power of a strong community and LangChain ecosystem.
+
+These frameworks are part of the ongoing evolution of AI, where the focus is on creating intelligent systems that can learn from and adapt to their environments, leading to more personalized and efficient solutions across industries.

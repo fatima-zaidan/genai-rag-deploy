@@ -1,0 +1,259 @@
+Generative artificial intelligence, or GenAI, uses sophisticated algorithms to organize large, complex data sets into meaningful clusters of information in order to create new content, including text, images and audio, in response to a query or prompt. GenAI typically does two things: First, it encodes a collection of existing information into a form (vector space) that maps data points based on the strength of their correlations (dependencies). Second, when prompted, it then generates (decodes) new content by finding the correct context within the existing dependencies in the vector space.
+
+Familiar to users through popular interfaces such as OpenAI's ChatGPT and Google's Gemini, generative AI can answer complex questions, summarize vast amounts of information, and automate many tasks done previously by humans. For example, businesses use generative AI to help draft reports, personalize marketing campaigns, make commercial films and improve code. Software vendors are integrating generative AI into core business applications, such as CRM and ERP, to boost efficiency and improve decision-making. GenAI is also being added to existing automation software, such as robotic process automation (RPA) and customer service chatbots, to make them more proactive. Under the hood, generative AI is being used to create synthetic data to train other AI and machine learning models.
+
+
+GenAI takes off
+The strong interest in generative AI today from consumers, businesses and industry players alike was sparked by the blockbuster debut of ChatGPT in late 2022, which enabled users to create high-quality text in seconds and -- seemingly overnight -- became the fastest-growing consumer app in history. The underpinning of this breakthrough technology, it should be noted, was not brand-new, dating back to the 1960s when it was introduced in chatbots. It wasn't until 2014, however, with the introduction of generative adversarial networks (GANs) -- a type of machine learning algorithm -- that generative AI could create convincingly authentic images, videos and audio of real people.
+
+Two additional recent advances have played a critical role in generative AI going mainstream: transformers and the breakthrough language models they enabled. Transformers are a type of machine learning that made it possible for researchers to train ever-larger models without having to label all the data in advance. New, so-called large language models (LLMs) could thus be trained on billions of pages of text, resulting in answers with more depth. In addition, transformers unlocked a new notion called attention that enabled models to track the connections between words across pages, chapters and books rather than just individual sentences. And they don't just analyze words; transformers can also use their ability to track connections to analyze code, security event data, proteins, chemicals and DNA.
+
+Rapid advances in large generative AI models -- i.e., models with billions of parameters -- in turn, opened a new era in which generative AI models could not only write engaging text but also paint photorealistic images and even create somewhat entertaining sitcoms on the fly. Innovations in multimodal AI now enable users to generate content across multiple media types, including text, graphics and video. This is the basis for visual tools like OpenAI's Dall-E and Google's Imagen 3, which convert text into images, and Janus Pro from Chinese AI startup DeepSeek, which can create images from a text description and generate text captions from images.
+
+These breakthroughs notwithstanding, we are still in relatively early -- and volatile -- days for generative AI. Implementations continue to have issues with accuracy and bias, as well as being prone to hallucinations and spitting back weird answers. Generative AI has also unlocked concerns about deepfakes -- digitally forged images or videos -- and harmful cybersecurity attacks on businesses, including nefarious requests that realistically mimic an employee's boss.
+
+From GenAI to AGI?
+GenAI supporters have claimed that generative techniques represent a significant step toward artificial general intelligence (AGI): AI that possesses all the intellectual capabilities humans possess, including reasoning, adaptability, self-improvement and understanding. Despite GenAI's impressive results, we are likely many technological advances short of that happening. While GenAI excels at interpreting and generating content at one level of abstraction, it still struggles when parsing context across multiple levels of abstraction, resulting in various omissions and errors that are easily spotted by humans. This is why enterprises must proceed cautiously in how they implement these new techniques, whether via vendor tools, foundation models or on their own.
+
+Just as concerning: The pace of improvement has recently hit a wall. For example, OpenAI's GPT 4.5 LLM saw only modest improvements in accuracy despite a 10x to 30x increase in development costs. In addition, as models have become larger and more complex, vendors have struggled to scale them efficiently. Making matters more complicated, new approaches exemplified in DeepSeek's R1 model suggest that far less computing is required to train new foundation models -- a finding that, following the model's January 2025 release, triggered a massive sell-off of shares in Nvidia and other AI-related tech stocks.
+
+Still, progress thus far has already resulted in generative AI fundamentally changing enterprise technology and transforming how businesses operate. Let's look deeper at how this technology works and its implications. Hyperlinks throughout this overview of generative AI will take you to articles, tips and definitions providing even more detailed explanations.
+
+
+How does generative AI work?
+The generative AI process starts with foundation models, such as the GPT series, Palm and Gemini. These are large neural networks trained on massive collections of data that provide a broad assimilation of known information and knowledge. They generally include text, which provides a way to distill human concepts. Other data sources include images, video, IoT, robot instructions and enterprise data.
+
+As noted, basic generative AI models consist of an encoder and a decoder. The encoder transforms text, code, images and other prompts into a format AI can process. This intermediate representation could be a vector embedding or a probabilistic latent space. The decoder generates content by transforming the intermediate representation into new content, such as a chatbot response, document summary, translation or other data type.
+
+Algorithmic models to train GenAI
+A variety of algorithms are used to train the encoder and decoder components. For example, the transformer algorithms popular with developers of large language models use self-attention algorithms that learn and refine vector embeddings that capture the semantic similarity of words. Self-attention algorithms aggregate the embeddings in an intermediate representation that encodes the context of the input. The decoder uses an autoregressive method, like time series analysis, to transform the intermediate representation into a response.
+
+Diffusion models, employed in image generation, use forward diffusion to transform data into a latent space representation and reverse diffusion to generate new content. Variational autoencoders (VAEs) use other techniques to encode and decode data into a probabilistic latent space, where each point is defined by a range of possibilities. The aforementioned GANs use one neural network, such as a convolutional neural network, for generating realistic content and another discriminative model for detecting AI-generated content. A Kolmogorov-Arnold Network (KAN), an emerging and very advanced neural network, creates a direct mapping from input to output without traditional encoders and decoders.
+
+Certain algorithmic architectures are better suited than others for specific types of prompts, which can come in the form of text, a code snippet, an enterprise data set, an image, a video, a design, musical notes or any input that the AI system can process. Diffusion models, for example, excel at generating very high-quality, realistic images, including human faces. GANs are also good at creating realistic images but can be hard to train. Both GANs and VAEs are used to generate synthetic data for AI training. KANs, which excel at making complex functions understandable but are in the experimental stage, have the potential to be good at weather and stock market predictions.
+
+Early versions of generative AI required submitting data via an API or an otherwise complicated process. Developers had to familiarize themselves with special tools and write applications using languages such as Python.
+
+Pioneers in generative AI have developed better user experiences that let you describe a request in plain language. After an initial response, you can also customize the results with feedback about the style, tone and other elements you want the generated content to reflect.
+
+Image displaying quotes about generative AI from industry experts
+Best practices for using generative AI
+The best practices for using generative AI vary depending on the modalities, workflow and desired goals. That said, it is always important to consider factors such as accuracy, transparency and ease of use when working with generative AI. The following practices serve as a guide:
+
+Clearly label all generative AI content for users and consumers.
+Assess the cost/benefit tradeoffs compared with other tools.
+Vet the accuracy of generated content using primary sources, where applicable.
+Consider how bias might get woven into generated AI results.
+Double-check the quality of AI-generated code and content using other tools.
+Learn the strengths and limitations of each generative AI tool.
+Familiarize yourself with common failure modes in results and work around them.
+Vet new applications with subject matter experts to identify problems.
+Implement guardrails to mitigate issues with trust and security.
+ChatGPT, Gemini, Copilot and other GenAI tools
+Early GenAI tools focused on a single task, such as answering questions, summarizing documents, writing code or creating images. Major AI vendors like OpenAI, Google, and Microsoft now brand their GenAI products as general-purpose suites that support multiple tasks. Other vendors continue to innovate with best-of-breed tools and APIs optimized for specific tasks or by offering better integration with other popular tools for software development, media production or enterprise apps. The following are some of the top GenAI tools:
+
+OpenAI ChatGPT. The AI-powered chatbot that took the world by storm in November 2022 was built on OpenAI's GPT-3.5 implementation. OpenAI pioneered a way to fine-tune text responses via a chat interface equipped with interactive feedback. After the incredible popularity of the new GPT interface, Microsoft announced a significant new investment in OpenAI and integrated a version of GPT into its Bing search engine. With its GPT-4o model, the company now supports multimodal capabilities for listening and responding with realistic voices, image prompting and advanced reasoning capabilities that improve accuracy and precision. Multimodal image generation capabilities include Dall-E for images and Sora for video. The ChatGPT search feature, launched in late 2024, lets users search the web within the ChatGPT interface. GPT-4.5 has received a lukewarm reception because it cost 10 times more than previous models with only modest gains.
+
+Google Gemini. Google pioneered transformer AI techniques for processing language, proteins and other types of content. It now provides a suite of Gen AI tools via its Gemini interface to answer questions, summarize documents, search the web and analyze as well as generate code. Google also streamlines access to AI models that generate other kinds of content, such as its Imagen diffusion-based model for images. Other GenAI capabilities are provided as part of its Vertex AI service for application development. NotebookLM enables users to upload documents, audio and video to summarize, answer questions and create short audio podcasts.
+
+Microsoft Copilot. Microsoft was an early investor in OpenAI and used the company's various LLMs to develop a range of GenAI tools. It has since consolidated its GenAI branding into the Microsoft Copilot suite for Windows, Microsoft 365 and GitHub tools. The service now uses LLMs developed by Microsoft and third parties in addition to OpenAI's LLMs. Copilot excels at processing and generating content using apps such as Word, Excel, PowerPoint, GitHub and Microsoft Dynamics 365 CRM.
+
+Perplexity. California startup Perplexity AI launched its AI-powered search engine by the same name in 2022 with the goal of improving the search and summarizing experience across webpages and science papers. Its latest Comet model uses an agentic AI approach to automate web tasks and streamline search. In addition to drawing upon its own Sonar LLM, Comet takes advantage of numerous GenAI models from other vendors, including OpenAI GPT-4o and Claude Sonnet. Whereas other tools focus on improving foundation models, Perplexity has focused on improving the UX of working with existing models.
+
+Anthropic Claude. This company was founded by former OpenAI employees with the goal of developing more accurate, trustworthy and safe foundation models. With its privacy-first focus, Claude uses a "Constitutional AI" approach that trains the foundation model to follow predefined ethical principles and weigh the results of different kinds of models in generating content as well as making or suggesting decisions.
+
+DeepSeek. A newer model developed by High-Flyer, a Chinese hedge fund, DeepSeek pushed the bar in terms of efficiency, performance and cost-effectiveness compared with traditional AI tools. Experts estimated it was trained at one-tenth to one-thirtieth the cost of traditional foundation models while achieving comparable results. News of the new DeepSeek model caused a massive sell-off of U.S. tech stocks, particularly those in AI infrastructure and chips, followed by a partial rebound.
+
+Specialized GenAI tools
+A variety of best-of-breed commercial and open source tools also excel at generating particular kinds of content or for various use cases. The following examples are a case in point:
+
+Text generation tools include Jasper, Writer and Lex.
+Image generation tools include Midjourney and Stable Diffusion.
+Music generation tools include Amper, Dadabots and MuseNet.
+Code generation tools include Amazon CodeWhisperer, Codia AI, CodeStarter, Codex and Tabnine.
+Voice synthesis tools include Descript, Listnr and PodcastAI.
+What are the business benefits of generative AI?
+Generative AI can be applied extensively across many areas of business. It can make it easier to interpret and understand existing content as well as automatically create new content. Developers are exploring ways that generative AI can improve existing workflows, with an eye to adapting workflows entirely to take advantage of the technology. Some of the potential benefits of implementing generative AI include the following:
+
+Improving customer experience. Chatbots can pull information from enterprise systems and technical documents to support a wide range of customer requests and can recommend specific offerings for upsell opportunities. They can also simplify many processes, such as ordering or changing products and services
+Building new products and accelerating development. GenAI tools integrated into software development environments can analyze and refactor existing code bases, streamline code generation, streamline testing processes and support deployment as well as rollback processes. They can also make it easier for business and subject matter experts to implement new products, processes and features.
+Improving task efficiency. Office productivity tools and business applications, such as CRM and ERP applications, can use GenAI models to extract, copy and paste essential information across apps, services and databases to reduce key entry and improve accuracy.
+Boosting personalization. Content creation tools can customize offers, translate content for different languages or regions, suggest relevant upsell opportunities and distill the most relevant information for a given customer or inquiry.
+Risk identification and management. GenAI capabilities can distill relevant information from various systems to identify, mitigate and resolve risks. Examples include improving IT service management, IT compliance, security audits and enterprise risk management.
+
+Implementing generative AI is not just about technology. Businesses must also consider its impact on people and processes.
+What are the limitations of generative AI?
+Early implementations of generative AI vividly illustrate its many limitations. Some of the challenges generative AI presents result from the specific approaches used to implement particular use cases. For example, a generative AI-produced summary of a complex topic is easier to read than an explanation filled with various sources and citations that support key points. The readability of the GenAI summary, however, comes at the expense of a user being able to vet where the information comes from.
+
+Consider the following limitations when implementing or using a generative AI app:
+
+The app does not always identify the source of content and sometimes points to plausible but erroneous sources of information.
+It can be challenging to assess the biases of original sources.
+Realistic-sounding content makes it harder to identify inaccurate information.
+It can be difficult to understand how to tune for new circumstances.
+The app lacks the capability for original thought.
+What are the concerns surrounding generative AI?
+Many of the concerns raised by the current state of generative AI relate to the quality of results, the potential for misuse as well as abuse and the potential to disrupt existing business models. Major issues include the following:
+
+Misleading information. The biggest problem with GenAI tools is that they can hallucinate and produce results not grounded in prompts. For example, Air Canada lost a lawsuit after its chatbot provided a passenger bereavement flight information about refunds that conflicted with the company's official policy.
+Fake citations. Numerous law firms have been sanctioned for filing briefs with nonexistent court precedents. In one case, a prominent Stanford University communications professor and recognized expert on misinformation was called out for including fake citations generated by ChatGPT in an expert witness filing he provided -- ironically, for a case related to deepfake laws. The testimony was dismissed. Academic papers have also been retracted for including fake citations: GenAI understands the format of a publication, but it can't tell the difference between a real publication and one that it has just made up.
+Copyright violations. Lawmakers and regulators are still deciding whether using copyrighted information is a violation of existing copyright laws meant to protect human research and the summarization of copyrighted content. The numerous lawsuits that have been filed against GenAI developers have been largely unsuccessful. It's not clear how court losses or regulatory changes will affect enterprises that use these models.
+Terms of service violations. In the process of training, many AI models have scraped data and used APIs in ways that violated the terms of service (TOS) of publishers and other organizations. The issues are different from and somewhat overlap with the copyright violations cited above. For example, OpenAI has been accused of violating the terms of service of publishers like the New York Times in aggregating content from The New York Times. Meanwhile. Microsoft and OpenAI have also claimed that the developers of the DeepSeek model violated their TOS during the training process. Like copyright, TOS violations could affect enterprise users of these systems, even if they have been open sourced. Somewhat paradoxically, Microsoft now offers DeepSeek models on its Azure cloud platform.
+Openwashing. This refers to various deceptive practices used by GenAI companies to appear open and transparent about the AI models they are developing and marketing. Some AI models, for example, have been released under new licensing schemes that purport to be open but might force enterprises to pay licensing fees if they exceed a threshold of usage or compete with the developer. Also, many open AI models lack transparency into the data used for training them, which is critical for understanding issues like bias.
+Data sweatshops. The rise of GenAI has driven the growth of a shadow economy of data sweatshops. Some of these employ low-wage workers in developing countries, with little regard for worker well-being. The most concerning examples include exposing contractors to toxic content that could cause PTSD.
+Energy concerns. The enthusiasm behind GenAI has accelerated the growth of large-scale data centers, which consume vast quantities of water and power. The infrastructure strains existing electric grid infrastructure and, in some cases, has raised utility rates for local residents. There is also concern that the advent of mega data centers slowed efforts to replace carbon energy plants with more sustainable factories.
+New security threats. Hackers are discovering a variety of creative ways to craft more effective attacks on enterprise systems. At a technical level, GenAI tools can identify potential vulnerabilities and craft better attacks on infrastructure and security systems. New social engineering attacks can craft more persuasive bogus emails or even mimic the voice and video of trusted executives to create high-value attacks on businesses and consumers.
+What are the use cases for generative AI?
+Generative AI can be applied in an array of use cases across industries to generate content, summarize complex information and streamline various enterprise processes. The technology is becoming more accessible to users of all kinds, thanks to cutting-edge breakthroughs like GPT, diffusion models and GANs that can be tuned for different applications. Some use cases for generative AI include the following:
+
+Implementing chatbots for customer service and technical support.
+Analyzing and summarizing events from security and IT service logs.
+Improving movie dubbing and educational content in different languages.
+Writing email responses, résumés and business reports.
+Prioritizing interview candidates from a collection of résumés.
+Creating photorealistic art for marketing and advertising.
+Improving product demonstration videos.
+Suggesting new drug compounds to test.
+Designing physical products and buildings.
+Optimizing new chip designs.
+Writing music in a specific style or tone.
+Creating podcasts for particular users, audiences or personas.
+Answering questions from product manuals.
+Augmenting and automating code generation and QA processes.
+Use cases for generative AI, by industry
+New generative AI technologies have sometimes been described as general-purpose technologies akin to steam power, electricity and computing because they can profoundly affect many industries and support many use cases. It's essential to remember that, like previous general-purpose technologies, it often took decades for organizations to find the best way to take advantage of the new technology and transform their workflows rather than, in the case of automation, simply repave the cow path. Below is a sampling of the ways in which generative AI applications are changing industries.
+
+Finance. Generative AI could add $200 billion to $340 billion in annual value to banking, chiefly through productivity gain, according to consulting firm McKinsey. GenAI's ability to identify patterns in vast amounts of customer and market data is enabling banks to hyperpersonalize customer service and improve fraud detection.
+
+Legal services. Inundated with generative AI products, the legal industry is learning to effectively and safely use tools that are designed to do everything from legal research and summarizing briefs to preparing tax returns, drafting contracts and suggesting legal arguments.
+
+Manufacturing. GenAI models can integrate data from cameras, X-rays and other metrics to identify defective parts and the root causes, accelerating time to insight. Plant operators can query in natural language to get comprehensive reports on internal and external operations.
+
+Education. Generative AI helps teachers and administrators through task automation, including grading assignments, generating quizzes and crafting individualized study programs. GenAI's ability to find answers instantly is challenging educators to rethink teaching methods and focus on higher-order skills, such as critical thinking and problem-solving, as well as address the ethical issues posed by AI use.
+
+
+Ethics and bias in generative AI
+Despite their promise, the new generative AI tools open a can of worms regarding accuracy, trustworthiness, bias, hallucination and plagiarism -- ethical issues that likely will take years to sort out. None of the issues are particularly new to AI. For example, Microsoft's first foray into chatbots in 2016, called Tay, had to be turned off after it started spewing inflammatory rhetoric on Twitter. Google was forced to turn off a controversial image-labeling service after it labeled African Americans as gorillas.
+
+What is new is that the latest crop of generative AI apps sounds more coherent on the surface. But this combination of humanlike language and coherence is not synonymous with human intelligence, and there currently is great debate about whether generative AI models can be trained to have reasoning ability. One Google engineer was even fired after publicly declaring the company's generative AI app, Language Models for Dialog Applications (Lamda), was sentient.
+
+The convincing realism of generative AI content introduces a new set of AI risks. It makes it harder to detect AI-generated content and, more importantly, makes it more difficult to detect errors. This can be a big problem when we rely on generative AI results to write code or provide medical advice. Many results of generative AI are not transparent, so it's hard to determine whether, for example, they infringe on copyrights or whether there's a problem with the original sources from which they draw results. If you don't know how the AI arrived at a conclusion, you cannot determine why it might be wrong.
+
+In addition, data leakage of private and sensitive information and new compliance risks are two big concerns. A variety of trustworthy and ethical AI frameworks could help address such concerns. It remains unclear how generative AI business metrics for monitoring bias will change in the current political climate.
+
+
+
+Generative AI history
+The Eliza chatbot created by Joseph Weizenbaum in the 1960s represented a major breakthrough in natural language processing (NLP) and was one of the earliest examples of generative AI. These early implementations used a rules-based approach that broke easily due to a limited vocabulary, lack of context and overreliance on patterns, among other shortcomings. Early chatbots were also difficult to customize and extend.
+
+The field saw a resurgence in the wake of advances in neural networks and deep learning in 2010 that enabled the technology to automatically learn to parse existing text, classify image elements and transcribe audio.
+
+Ian Goodfellow introduced GANs in 2014. This deep learning technique provided a novel approach for organizing competing neural networks to generate and then rate content variations. These could generate realistic people, voices, music and text. This inspired interest in -- and fear of -- how generative AI could be used to create realistic deepfakes that impersonate voices and people in videos.
+
+Since then, progress in other neural network techniques and architectures has helped expand generative AI capabilities. Techniques include VAEs, long short-term memory, transformers, diffusion models, Gaussian splatting and neural radiance fields. Researchers and vendors are also starting to combine techniques in novel ways to improve accuracy, precision and performance while reducing hallucinations.
+
+Timeline of the history of generative AI technologies
+The future of generative AI
+The incredible depth and ease of ChatGPT spurred the widespread adoption of generative AI. The rapid adoption of generative AI applications, to be sure, also demonstrated some of the difficulties in rolling out this technology safely, responsibly and to optimal effect. Indeed, despite the promise of GenAI techniques to radically change the way we work, enterprises are still in the early stages of assessing AI readiness and figuring out how GenAI's capabilities might improve results and reduce costs compared to traditional approaches. Moreover, current approaches to GenAI are hitting a wall in terms of the cost required to improve performance and accuracy. In addition, GenAI struggles with questions that require synthesis not already embedded in its language model because it doesn't have the language to make that systematic step -- something humans do easily.
+
+But these early implementation issues and limitations have also inspired research into better tools. It's an incredibly dynamic and ambitious field. AI vendors and developers are experimenting with new agentic AI frameworks, such as AutoGPT, that use prompt chaining to connect multiple special-purpose GenAI models to improve accuracy and reduce hallucinations. At the bleeding edge, new approaches to physical AI, exemplified by the Nvidia Omniverse and Cosmos platforms, apply GenAI techniques to analyze the physical world.
+
+Moreover, the popularity of generative AI tools such as Midjourney, Stable Diffusion, Gemini and ChatGPT has fueled an endless variety of training courses at all levels of expertise, many of which are aimed at helping developers create better AI applications. Others focus more on helping business users apply the new technology more effectively across the enterprise. At some point, industry and society will also build better tools for tracking the provenance of information to create more trustworthy AI.
+
+Meantime, generative AI will continue to evolve, making advancements in translation, drug discovery, anomaly detection and the generation of new content, from text and video to fashion design and music. And as good as the new one-off tools are, the most significant impact of generative AI will come from integrating these capabilities directly into the tools we already use. Design tools will seamlessly embed more useful recommendations directly into our workflows. Training tools will be able to automatically identify best practices in one part of an organization to help train other employees more efficiently. These are just a fraction of the ways generative AI will change what we do in the near term.
+
+What the impact of generative AI will be in the future is hard to say. But as we continue to harness these tools to automate and augment human tasks, we will inevitably find ourselves having to reevaluate the nature and value of human expertise.
+
+Generative AI FAQs
+Below are some frequently asked questions people have about generative AI.
+
+Who created generative AI?
+Joseph Weizenbaum created the first generative AI in the 1960s as part of the Eliza chatbot.
+
+Ian Goodfellow demonstrated generative adversarial networks for generating realistic-looking and -sounding people in 2014.
+
+Subsequent research into LLMs from OpenAI and Google ignited the recent enthusiasm that has evolved into tools like ChatGPT, Google Gemini and Dall-E.
+
+
+What's the difference between generative AI and traditional AI?
+Generative AI focuses on creating new and original content, chat responses, designs, synthetic data and even deepfakes. It's particularly valuable in creative fields and for novel problem-solving, as it can autonomously generate many types of new outputs. It relies on neural network techniques such as VAEs, GANs and transformers to predict text, pixels or video frames. Generative AI often starts with a prompt that lets a user or data source submit a starting query or data set to guide content generation. This can be an iterative process to explore content variations.
+
+Traditional AI algorithms, on the other hand, often follow a predefined set of rules to process data and produce a result. In the wake of GenAI, these older algorithms are sometimes called discriminative AI, since they discover patterns in data to yield recommendations or analytics insights and to make decisions.
+
+Both approaches have their strengths and weaknesses, depending on the problem to be solved, with generative AI being well-suited for tasks involving NLP and for the creation of new content, and traditional algorithms more effective for tasks involving rule-based processing and predetermined outcomes. Traditional AI techniques tend to be faster, more efficient and less prone to hallucinations. Generative AI techniques are more flexible and tend to work better in discovering patterns across multiple modalities of data, such as text, audio and video.
+
+What's the difference between large language models and generative AI?
+Large language models are a type of generative AI designed for linguistic tasks, such as text generation, question and answering, and summarization. The broad category of generative AI includes a variety of model architectures and data types, including video, images and audio. Learn more about their differences in this article comparing LLMs and generative AI.
+
+How do you build a generative AI model?
+A generative AI model starts by efficiently encoding a representation of what you want to generate. For example, a generative AI model for text might begin by finding a way to represent the words as vectors that characterize the similarity between words often used in the same sentence or that mean similar things.
+
+Recent progress in LLM research has helped the industry implement the same process to represent patterns found in images, sounds, proteins, DNA, drugs and 3D designs. This generative AI model provides an efficient way of representing the desired type of content and efficiently iterating on useful variations.
+
+How do you train a generative AI model?
+The generative AI model needs to be trained for a particular use case. The recent progress in LLMs provides an ideal starting point for customizing applications for different use cases. For example, the popular GPT model developed by OpenAI has been used to write text, generate code and create imagery based on written descriptions.
+
+Training involves tuning the model's parameters for different use cases and then fine-tuning results on a given set of training data. For example, a call center might train a chatbot against the kinds of questions AI agents get from various customer types and the responses that service agents give in return. An image-generating app, in distinction to text, might start with labels that describe content and style of images to train the model to generate new images.
+
+AI prompting and agent-based systems
+With the advent of autonomous AI agents such as AutoGPT and AgentGPT, the way machines operate and complete tasks is evolving and -- along with that -- the role of AI prompt engineers. The following are some of the techniques that AI agents and prompt engineers use to enable more autonomous and informed generative AI.
+
+Chain-of-thought prompting aims to improve language model's performance by structuring the prompt to mimic how a human might reason through a problem. Queries using this technique use phrases like "explain your answer step-by-step" or "describe your reasoning in steps," with the aim of generating more accurate answers and reducing hallucinations.
+
+Retrieval-augmented generation (RAG) and Retrieval-Augmented Language Model pretraining (RALM) are NLP techniques that improve the quality of large language models by retrieving data from external sources of knowledge, such as document repositories, vector databases and APIs. RAG retrieves the information in real time to answer a prompt, while RALM pretrains the LLM with retrieval capabilities to improve its knowledge during training.
+
+LangChain is an open source framework that facilitates RAG by connecting LLMs with external knowledge sources and that provides the infrastructure for building LLM agents that can execute many of the tasks in RAG and RALM.
+
+What are some generative models for natural language processing?
+Some generative models for natural language processing include the following:
+
+Carnegie Mellon University's XLNet addressed limitations in BERT by improving on its pretraining method.
+Google's ALBERT ("A Lite" BERT) focused on the reduction of parameters.
+Google BERT revolutionized NLP with transformer architecture.
+Google Lamda's training on dialogue led to more natural conversation.
+OpenAI's GPT is foundational to today's generative NLP.
+Word2Vec and GloVe word embedding models improved tasks such as sentiment analysis and translation.
+What is conversational AI, and how is it different from predictive and generative AI?
+Conversational AI, a subset of GenAI, helps AI systems like virtual assistants, chatbots and customer service apps interact and engage with humans using natural dialogue. It uses techniques from NLP and machine learning to understand language and provide humanlike text or speech responses.
+
+Predictive AI, in distinction to generative AI, uses patterns in historical data to forecast outcomes, classify events and provide actionable insights. Organizations use predictive AI to sharpen decision-making and develop data-driven strategies.
+
+How could generative AI replace jobs?
+Generative AI has the potential to replace a variety of jobs. The following are a sample of the types of jobs vulnerable to GenAI:
+
+Content writers, particularly those who write formulaic content such as product descriptions, basic marketing content, summarizations and recaps.
+Graphic design and visual content creators.
+Customer service and support.
+Data processing work, including data entry, analysis and scheduling.
+Software development jobs, including code generation and software testing.
+Some companies will look for opportunities to replace humans where possible, while others will use generative AI to augment and enhance their existing workforce.
+
+How is generative AI changing creative work?
+Generative AI promises to help creative workers explore variations of ideas. Artists might start with a basic design concept and then explore variations. Industrial designers could explore product variations. Architects could explore different building layouts and visualize them as a starting point for further refinement.
+
+It could also help democratize some aspects of creative work. For example, business users could explore product marketing imagery using text descriptions. They could further refine these results using simple commands or suggestions.
+
+Podcast generation tools like Google's NotebookLM can transform existing websites, PDFs, interviews and videos into interactive podcasts for employees and customers.
+
+What's next for generative AI?
+ChatGPT's ability to generate humanlike text has sparked widespread curiosity about generative AI's potential. It also shined a light on the many problems and challenges ahead.
+
+In the short term, work in generative AI will focus on improving the user experience and workflows. Building trust in generative AI results will also be essential.
+
+More companies will customize generative AI on their own data to help improve branding and communication as well as enforce company-specific best practices for writing and formatting more readable and consistent code.
+
+Vendors will integrate generative AI capabilities into more of their tools to streamline content generation workflows in ways that increase productivity.
+
+Generative AI will also play a role in various aspects of data processing, transformation, labeling and vetting as part of augmented analytics workflows. Semantic web applications will use generative AI to automatically map internal taxonomies describing job skills to different taxonomies on skills training and recruitment sites. Similarly, business teams will use these models to transform and label third-party data for more sophisticated risk assessments and opportunity analysis capabilities.
+
+Generative AI models are being extended to support 3D modeling, product design, drug development, digital twins, supply chains and business processes. This is making it easier to generate new product ideas, experiment with different organizational models and explore various business ideas.
+
+Will AI ever gain consciousness?
+Some AI proponents believe that generative AI is an essential step toward general-purpose AI and even consciousness. One early tester of Google's Lamda chatbot even created a stir when he publicly declared it was sentient. Then he was let go from the company.
+
+In 1993, the American science fiction writer and computer scientist Vernor Vinge posited that, in 30 years, we would have the technological ability to create a "superhuman intelligence" -- an AI that is more intelligent than humans -- after which the human era would end. AI pioneer Ray Kurzweil predicted such a "singularity" by 2045.
+
+Many other AI experts think it could be much further off. Robot pioneer Rodney Brooks predicted that AI will not gain the sentience of a 6-year-old in his lifetime but could seem as intelligent and attentive as a dog by 2048.
+
+
+
