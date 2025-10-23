@@ -22,7 +22,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -45,7 +45,7 @@ jobs:
             CONTAINER_PORT="${{ env.CONTAINER_PORT }}"
 
             echo "Logging in to Docker Hub on EC2..."
-            echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+            echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
             echo "Pulling latest image..."
             docker pull "$IMAGE"
