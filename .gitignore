@@ -107,3 +107,4 @@ env.bak/
 settings.json
 venv/
 .env
+genai-demo-key.pem

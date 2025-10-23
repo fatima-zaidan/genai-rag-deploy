@@ -13,6 +13,5 @@ pydantic==2.12.2
 sqlalchemy==2.0.44
 psycopg2-binary==2.9.11
 gradio
-numpy<2
-awscli
+numpy>=1.26,<2
 boto3
