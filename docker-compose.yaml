@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - ./src:/app
+    
+      
     ports:
       - "7870:7860"  # Expose Gradio on port 7860
     environment:
