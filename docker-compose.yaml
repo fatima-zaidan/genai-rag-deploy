@@ -11,6 +11,7 @@ services:
       - "7870:7860"  # Expose Gradio on port 7860
     environment:
       - DATABASE_URL=postgresql+psycopg2://rag_role:mypassword@db:5432/rag_db
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
     depends_on:
       - db
 
