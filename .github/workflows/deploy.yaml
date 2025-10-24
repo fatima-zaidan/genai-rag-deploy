@@ -47,7 +47,12 @@ jobs:
             echo "Logging in to Docker Hub on EC2..."
             echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
-            cd /home/${{ secrets.EC2_USER }}/genii-assistant  # Path to your project
+            cd /home/${{ secrets.EC2_USER }}
+            if [ ! -d "genii-assistant" ]; then
+             git clone https://github.com/fatima-zaidan/genai-rag-deploy.git genii-assistant
+            fi
+            cd genii-assistant
+            git pull origin main
 
             echo "Pulling latest images..."
             docker-compose pull
