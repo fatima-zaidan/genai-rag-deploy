@@ -31,7 +31,7 @@ jobs:
           push: true
           tags: ${{ env.IMAGE }}
 
-      - name: Deploy to EC2
+      - name: Deploy to EC2 using Docker Compose
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -47,20 +47,18 @@ jobs:
             echo "Logging in to Docker Hub on EC2..."
             echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
-            echo "Pulling latest image..."
-            docker pull "$IMAGE"
+            cd /home/${{ secrets.EC2_USER }}/genii-assistant  # Path to your project
 
-            if [ "$(docker ps -aq -f name=^/${NAME}$)" ]; then
-              echo "Stopping and removing existing container..."
-              docker stop "$NAME" || true
-              docker rm "$NAME" || true
-            fi
+            echo "Pulling latest images..."
+            docker-compose pull
 
-            echo "Running new container..."
-            docker run -d \
-              --name "$NAME" \
-              --restart unless-stopped \
-              -p ${HOST_PORT}:${CONTAINER_PORT} \
-              "$IMAGE"
+            echo "Stopping and removing existing containers if any..."
+            docker-compose down
+
+            echo "Building and starting containers..."
+            docker-compose up -d --build
+
+            echo "Cleaning up unused images..."
+            docker image prune -f
 
             echo "Deployment completed successfully."
