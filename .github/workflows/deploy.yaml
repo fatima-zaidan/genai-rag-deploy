@@ -55,13 +55,13 @@ jobs:
             git pull origin main
 
             echo "Pulling latest images..."
-            docker-compose pull
+            docker compose pull
 
             echo "Stopping and removing existing containers if any..."
-            docker-compose down
+            docker compose down
 
             echo "Building and starting containers..."
-            docker-compose up -d --build
+            docker compose up -d --build
 
             echo "Cleaning up unused images..."
             docker image prune -f
