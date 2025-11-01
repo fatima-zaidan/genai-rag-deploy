@@ -14,9 +14,14 @@ ENV PIP_NO_CACHE_DIR=1 \
 COPY requirements.txt .
 
 # Upgrade pip and install CPU-only torch + dependencies in one layer
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir torch==2.2.0+cpu --index-url https://download.pytorch.org/whl/cpu \
-    -r requirements.txt
+# Upgrade pip
+RUN pip install --upgrade pip
+
+# Install torch from PyTorch index
+RUN pip install --no-cache-dir torch==2.2.0+cpu --index-url https://download.pytorch.org/whl/cpu
+
+# Install the rest of requirements from PyPI
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY . .
