@@ -1,5 +1,5 @@
 # ===== Base image =====
-FROM python:3.11-slim
+FROM python:3.11-slim-bullseye
 
 # Set working directory
 WORKDIR /app
@@ -15,8 +15,8 @@ COPY requirements.txt .
 
 # Upgrade pip and install CPU-only torch + dependencies in one layer
 RUN pip install --upgrade pip && \
-    pip install --no-cache-dir torch==2.2.0+cpu --index-url https://download.pytorch.org/whl/cpu && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir torch==2.2.0+cpu --index-url https://download.pytorch.org/whl/cpu \
+    -r requirements.txt
 
 # Copy application code
 COPY . .
