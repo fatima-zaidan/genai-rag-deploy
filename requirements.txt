@@ -33,4 +33,5 @@ psycopg2-binary==2.9.11
 gradio==5.49.1
 gradio-client==1.13.3
 numpy==1.26.2
-boto3==1.26.180
+boto3>=1.26.200
+
