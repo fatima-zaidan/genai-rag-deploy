@@ -17,8 +17,8 @@
 #numpy>=1.26,<2
 #boto3
 
+# core dependencies
 python-dotenv==0.21.1
-
 langchain==0.3.27
 langchain-community==0.3.31
 sentence-transformers==5.1.1
@@ -27,11 +27,12 @@ langchain-openai==0.3.35
 openai==2.4.0
 fastapi==0.119.0
 uvicorn==0.37.0
-pydantic==2.12.2
+pydantic==2.11.5       # set to a version <2.12 to satisfy gradio’s <2.12 constraint
 sqlalchemy==2.0.44
 psycopg2-binary==2.9.11
 gradio==5.49.1
 gradio-client==1.13.3
 numpy==1.26.2
-boto3>=1.26.200
+boto3>=1.26.180,<1.30.0  # loosened range to allow compatibility
+
 
