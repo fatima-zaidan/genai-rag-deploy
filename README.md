@@ -49,8 +49,7 @@ Pull your Docker image:
 docker pull fatimazaidan26/genai-assistant:latest
 
 
-
-Folder Structure
+## Folder Structure
 genai-assistant/
 ├─ app/
 │  ├─ main.py              # FastAPI app entry
