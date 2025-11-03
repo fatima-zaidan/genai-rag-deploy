@@ -1,23 +1,30 @@
+version: "3.9"
+
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    
-      
+    image: fatimazaidan26/genai-assistant:latest  # Use prebuilt image from Docker Hub
+    container_name: genai_web
     ports:
-      - "7870:7860"  # Expose Gradio on port 7860
+      - "7870:7860"  # Access app on port 7870
     environment:
       - DATABASE_URL=postgresql+psycopg2://rag_role:mypassword@db:5432/rag_db
       - OPENAI_API_KEY=${OPENAI_API_KEY}
     depends_on:
       - db
+    restart: always  # Auto-restart on crash
 
   db:
     image: postgres:latest
+    container_name: genai_db
     environment:
       POSTGRES_USER: rag_role
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: rag_db
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persist database data
+    restart: always
+
+volumes:
+  postgres_data:

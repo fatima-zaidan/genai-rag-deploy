@@ -5,14 +5,14 @@ on:
     branches: ["main"]
 
 jobs:
-  build-and-deploy:
+  deploy-to-ec2:
     runs-on: ubuntu-latest
 
     env:
       IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/genai-assistant:latest
       NAME: genii-assistant
-      HOST_PORT: 80      # EC2 host port
-      CONTAINER_PORT: 7860 # Gradio container port
+      HOST_PORT: 7870        # EC2 host port
+      CONTAINER_PORT: 7860   # Gradio container port
 
     steps:
       - name: Checkout code
@@ -24,12 +24,13 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ env.IMAGE }}
+      # ---- Optional: skip building on GitHub Actions to avoid disk issues ----
+      # - name: Build and push Docker image locally or on another machine
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: ${{ env.IMAGE }}
 
       - name: Deploy to EC2 using Docker Compose
         uses: appleboy/ssh-action@v0.1.6
@@ -39,6 +40,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             set -e
+
             IMAGE="${{ env.IMAGE }}"
             NAME="${{ env.NAME }}"
             HOST_PORT="${{ env.HOST_PORT }}"
@@ -49,21 +51,25 @@ jobs:
 
             cd /home/${{ secrets.EC2_USER }}
             if [ ! -d "genii-assistant" ]; then
-             git clone https://github.com/fatima-zaidan/genai-rag-deploy.git genii-assistant
+              git clone https://github.com/fatima-zaidan/genai-rag-deploy.git genii-assistant
             fi
             cd genii-assistant
             git pull origin main
 
-            echo "Pulling latest images..."
-            docker compose pull
+            echo "Pulling the latest prebuilt Docker image..."
+            docker pull $IMAGE
 
             echo "Stopping and removing existing containers if any..."
-            docker compose down
+            docker compose down || true
 
-            echo "Building and starting containers..."
-            docker compose up -d --build
+            echo "Updating docker-compose.yml to use the pulled image..."
+            # Replace image in docker-compose.yml dynamically (optional if already set)
+            sed -i "s|image: .*|image: $IMAGE|" docker-compose.yml
 
-            echo "Cleaning up unused images..."
-            docker image prune -f
+            echo "Starting containers with restart policy..."
+            docker compose up -d
 
-            echo "Deployment completed successfully."
+            echo "Cleaning up unused Docker resources..."
+            docker system prune -af --volumes
+
+            echo "Deployment completed successfully. App should be live at http://<EC2_IP>:${HOST_PORT}"
