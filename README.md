@@ -1,6 +1,6 @@
-# GenAI Assistant: 
+## GenAI Assistant
 
-GenAI Assistant is an AI-powered assistant system built using a **RAG (Retrieval-Augmented Generation)** architecture. It allows users to ask questions and get responses based on custom datasets. The system combines **FastAPI**, **PostgreSQL**, **Gradio**, and **Docker** for a scalable and interactive AI assistant. Data is stored in **AWS S3** and embeddings are managed using **FAISS**.
+GenAI Assistant is an AI-powered assistant system built using a RAG (Retrieval-Augmented Generation) architecture. It allows users to ask questions and get responses based on custom datasets. The system combines FastAPI, PostgreSQL, Gradio, and Docker for a scalable and interactive AI assistant. Data is stored in AWS S3 and embeddings are managed using FAISS.
 
 ## Features
 - Retrieval-Augmented Generation (RAG) pipeline for accurate answers
@@ -22,7 +22,7 @@ Deployment: Docker, Docker Compose, EC2
 
 ## Installation
 Clone the repository
-git clone https://github.com/fatima-zaidan/genai-assistant.git
+git clone https://github.com/fatima-zaidan/genai-rag-deploy.git
 cd genai-assistant
 
 ## Environment Variables
@@ -44,9 +44,9 @@ The Gradio frontend will be available at: http://localhost:7860
 
 ## Deployment
 EC2 + Docker
-SSH into your EC2 instance
-Pull your Docker image:
-docker pull fatimazaidan26/genai-assistant:latest
+SSH into your EC2 instance 
+docker compose up -d --build 
+The app is deployed and running on EC2 http://51.45.2.42:7870/
 
 
 ## Folder Structure
