@@ -12,52 +12,68 @@ GenAI Assistant is an AI-powered assistant system built using a RAG (Retrieval-A
 - PostgreSQL for structured data management
 
 ## Tech Stack
-Backend: FastAPI
-Frontend: Gradio
-Database: PostgreSQL
-Vector Store: FAISS
-Embeddings: HuggingFaceEmbeddings
-Chat Model: ChatOpenAI
-Deployment: Docker, Docker Compose, EC2
+- Backend: FastAPI
+- Frontend: Gradio
+- Database: PostgreSQL
+- Vector Store: FAISS
+- Embeddings: HuggingFaceEmbeddings
+- Chat Model: ChatOpenAI
+- Deployment: Docker, Docker Compose, EC2
 
 ## Installation
 Clone the repository
+
 git clone https://github.com/fatima-zaidan/genai-rag-deploy.git
+
 cd genai-assistant
 
 ## Environment Variables
 Create a .env file in the root directory:
 
 OPENAI_API_KEY=your_openai_api_key
+
 AWS_ACCESS_KEY_ID=your_aws_access_key
+
 AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+
 AWS_BUCKET_NAME=your_s3_bucket_name
+
 DATABASE_URL=postgresql://user:password@host:port/dbname
 
 ## Install dependencies
 pip install -r requirements.txt
 
 ## Running Locally
+
 docker-compose up --build
+
 The FastAPI backend will be available at: http://localhost:8000
+
 The Gradio frontend will be available at: http://localhost:7860
 
 ## Deployment
 EC2 + Docker
+
 SSH into your EC2 instance 
-docker compose up -d --build 
+
+docker compose up -d --build
+
 The app is deployed and running on EC2 http://51.45.2.42:7870/
 
 
 ## Folder Structure
+```bash
 genai-assistant/
-├─ app/
-│  ├─ main.py              # FastAPI app entry
-│  ├─ pipeline/            # RAG pipeline logic
-│  ├─ database/              # Database models
-│  └─ utils/               # Helper functions
-├─ Dockerfile           # Docker configuration
-├─ requirements.txt
-├─ docker-compose.yml
-├─ README.md
-└─ .env
+├─ data/                  # Data files
+├─ src/
+│  ├─ api/                # FastAPI app endpoints
+│  ├─ database/           # Database models
+│  ├─ pipeline/           # RAG pipeline logic
+│  ├─ utils/              # Helper functions
+│  └─ gradi_app.py        # Gradio frontend entry
+├─ Dockerfile             # Docker configuration
+├─ requirements.txt       # Python dependencies
+├─ docker-compose.yaml    # Docker Compose configuration
+├─ README.md              # Project readme
+└─ .env                   # Environment variables
+
