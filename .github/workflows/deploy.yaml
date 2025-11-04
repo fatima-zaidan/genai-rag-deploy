@@ -1,4 +1,4 @@
-name: CI/CD - GenAI Assistant
+name: CI/CD Docker Deploy
 
 on:
   push:
@@ -8,36 +8,32 @@ on:
 env:
   IMAGE: fatimazaidan26/genai-assistant:latest
   NAME: genai-assistant
-  HOST_PORT: 8000
-  CONTAINER_PORT: 8000
+  HOST_PORT: 80
+  CONTAINER_PORT: 80
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2️⃣ Log in to Docker Hub
-      - name: Log in to Docker Hub
+      - name: Log in to Docker Hub (Runner)
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      # 3️⃣ Build the Docker image
       - name: Build Docker image
         run: |
+          # Multi-stage Dockerfile ensures small image
           docker build -t $IMAGE .
 
-      # 4️⃣ Push Docker image to Docker Hub
-      - name: Push Docker image
+      - name: Push Docker image to Docker Hub
         run: |
           docker push $IMAGE
 
-      # 5️⃣ Deploy to EC2
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -48,6 +44,7 @@ jobs:
             set -e
 
             IMAGE="${{ env.IMAGE }}"
+            NAME="${{ env.NAME }}"
             HOST_PORT="${{ env.HOST_PORT }}"
             CONTAINER_PORT="${{ env.CONTAINER_PORT }}"
             USER="${{ secrets.EC2_USER }}"
@@ -56,34 +53,43 @@ jobs:
             echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
             echo "📂 Setting up deployment directory..."
-            cd /home/${USER}
-            if [ ! -d "genai-assistant" ]; then
+            if [ ! -d "/home/${USER}/genai-assistant" ]; then
+              cd /home/${USER}
               git clone https://github.com/fatima-zaidan/genai-rag-deploy.git genai-assistant
             fi
-            cd genai-assistant
+            cd /home/${USER}/genai-assistant
 
-            echo "🔁 Fetching latest code..."
+            echo "🔁 Fetching latest code and docker-compose file..."
             git fetch origin main
             git reset --hard origin/main
 
-            echo "🧹 Cleaning up EC2 disk space..."
+            echo "🧱 Stopping running containers..."
+            docker compose down || true
+            sleep 5
+
+            echo "🧹 Aggressive EC2 Disk Cleanup (CRITICAL STEP)..."
+            # Remove all containers, images, volumes
+            docker ps -aq | xargs -r docker rm -f || true
+            docker images -aq | xargs -r docker rmi -f || true
+            docker volume ls -q | xargs -r docker volume rm -f || true
             docker system prune -af --volumes || true
+
+            # Purge system caches and logs
             sudo apt-get clean || true
             sudo rm -rf /tmp/* /var/tmp/* || true
             sudo journalctl --vacuum-time=3d || true
 
+            echo "💽 Checking disk space before pulling image..."
+            df -h / | grep -v Filesystem
+
             echo "🚀 Pulling the latest Docker image..."
             docker pull $IMAGE
 
-            echo "🧱 Stopping old containers..."
-            docker compose down || true
-            sleep 5
-
-            echo "🔧 Updating docker-compose.yml with new image..."
+            echo "🔧 Updating docker-compose.yml to use the latest image..."
             sed -i "s|image: .*|image: $IMAGE|" docker-compose.yml
 
             echo "📦 Starting containers..."
             docker compose up -d
 
-            echo "✅ Deployment complete!"
+            echo "✅ Deployment completed!"
             echo "🌍 App should be live at: http://$(curl -s ifconfig.me):${HOST_PORT}"
