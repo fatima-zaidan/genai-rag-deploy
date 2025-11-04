@@ -25,9 +25,6 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Pull latest Docker image
-        run: docker pull $IMAGE
-
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -51,9 +48,9 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
-            echo "🧱 Stopping running containers..."
-            docker compose down || true
-            sleep 5
+            echo "🧹 Cleaning old containers, images, and volumes..."
+            docker system prune -af --volumes || true
+            docker compose down -v || true
 
             echo "💽 Pulling latest Docker image..."
             docker pull $IMAGE
