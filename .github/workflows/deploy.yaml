@@ -5,7 +5,7 @@ on:
     branches: ["main"]
 
 jobs:
-  deploy-to-ec2:
+  build-and-deploy:
     runs-on: ubuntu-latest
     env:
       IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/genai-assistant:latest
@@ -23,7 +23,15 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Deploy to EC2 using Docker Compose
+      - name: Build Docker image
+        run: |
+          docker build -t $IMAGE .
+
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push $IMAGE
+
+      - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -37,37 +45,17 @@ jobs:
             HOST_PORT="${{ env.HOST_PORT }}"
             CONTAINER_PORT="${{ env.CONTAINER_PORT }}"
 
-            echo "🔑 Logging in to Docker Hub on EC2..."
-            echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+            cd /home/${{ secrets.EC2_USER }}/genii-assistant || exit 0
 
-            cd /home/${{ secrets.EC2_USER }}
-            if [ ! -d "genii-assistant" ]; then
-              git clone https://github.com/fatima-zaidan/genai-rag-deploy.git genii-assistant
-            fi
-            cd genii-assistant
-
-            echo "🔁 Resetting EC2 repo to match remote main branch..."
-            git fetch origin main
-            git reset --hard origin/main
-
-            echo "🧹 Cleaning up EC2 space before pulling image (AGRESSIVE CLEANUP)..."
-            docker system prune -af --volumes || true
-            sudo apt-get clean || true
-            sudo rm -rf /tmp/* /var/tmp/* || true
-            sudo journalctl --vacuum-time=3d || true
-
-            echo "🚀 Pulling the latest prebuilt Docker image..."
-            docker pull $IMAGE
-
-            echo "🧱 Stopping and removing existing containers if any..."
+            echo "🧱 Stopping any running containers..."
             docker compose down || true
             sleep 5
 
-            echo "🔧 Updating docker-compose.yml to use the pulled image..."
+            echo "🔧 Updating docker-compose.yml to use the latest image..."
             sed -i "s|image: .*|image: $IMAGE|" docker-compose.yml
 
-            echo "📦 Starting containers with restart policy..."
+            echo "📦 Starting containers..."
             docker compose up -d
 
-            echo "✅ Deployment completed successfully!"
+            echo "✅ Deployment completed!"
             echo "🌍 App should be live at: http://$(curl -s ifconfig.me):${HOST_PORT}"
