@@ -54,7 +54,7 @@ The Gradio frontend will be available at: http://localhost:7860
 ## Deployment
 EC2 + Docker
 
-SSH into your EC2 instance 
+SSH into your EC2 instance  
 
 docker compose up -d --build
 
