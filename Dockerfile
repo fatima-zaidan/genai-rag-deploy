@@ -1,5 +1,5 @@
-# ===== Base image =====
-FROM python:3.11-slim
+# ===== Stage 1: Builder (Installs dependencies and cleans up build tools) =====
+FROM python:3.11-slim AS builder
 
 # Set working directory
 WORKDIR /app
@@ -8,36 +8,42 @@ WORKDIR /app
 ENV PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PYTHONUNBUFFERED=1 \
-    CUDA_VISIBLE_DEVICES="" \
     PIP_DEFAULT_TIMEOUT=200
 
-# Install essential build tools and system dependencies
-# (Some Python libs like numpy, scipy, torch need them)
+# Install build tools for compiling Python dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    git \
     ffmpeg \
+    && apt-get autoremove -y \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy only requirements first (to leverage Docker cache)
+# Copy requirements first to leverage Docker cache
 COPY requirements.txt .
 
-# Upgrade pip
-RUN pip install --upgrade pip
+# Upgrade pip, install dependencies, and clean pip cache
+# PyTorch is installed automatically if listed in requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt && \
+    rm -rf /root/.cache/pip
 
-# Install CPU-only torch first (biggest dependency)
-RUN pip install --no-cache-dir torch==2.2.0+cpu --index-url https://download.pytorch.org/whl/cpu
+# ===== Stage 2: Runtime (Minimal image for deployment) =====
+FROM python:3.11-slim
 
-# Pre-install Gradio separately to avoid timeout/retry issues
-RUN pip install --no-cache-dir gradio==4.44.0
+# Set working directory
+WORKDIR /app
 
-# Install remaining dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy only installed Python packages from builder
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 
 # Copy application code
 COPY . .
 
-# Expose your app port
+# Runtime environment
+ENV PYTHONUNBUFFERED=1 \
+    CUDA_VISIBLE_DEVICES=""
+
+# Expose Gradio port
 EXPOSE 7860
 
 # Default command

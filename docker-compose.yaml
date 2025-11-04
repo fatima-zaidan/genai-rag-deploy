@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   web:
     image: fatimazaidan26/genai-assistant:latest
@@ -14,7 +12,7 @@ services:
     restart: always
 
   db:
-    image: postgres:18
+    image: postgres:latest
     container_name: genai_db
     environment:
       POSTGRES_USER: rag_role
@@ -23,7 +21,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data_new:/var/lib/postgresql
+      - postgres_data_new:/var/lib/postgresql/data
     restart: always
 
 volumes:

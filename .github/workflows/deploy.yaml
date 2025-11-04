@@ -12,19 +12,30 @@ env:
   CONTAINER_PORT: 7860
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Step 2: Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
+      # Step 3: Build Docker image using multi-stage Dockerfile
+      - name: Build Docker image
+        run: docker build -t $IMAGE .
+
+      # Step 4: Push Docker image to Docker Hub
+      - name: Push Docker image
+        run: docker push $IMAGE
+
+      # Step 5: Deploy to EC2
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -49,8 +60,8 @@ jobs:
             git reset --hard origin/main
 
             echo "🧹 Cleaning old containers, images, and volumes..."
-            docker system prune -af --volumes || true
             docker compose down -v || true
+            docker system prune -af --volumes || true
 
             echo "💽 Pulling latest Docker image..."
             docker pull $IMAGE
