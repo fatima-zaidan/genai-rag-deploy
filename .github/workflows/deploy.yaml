@@ -24,14 +24,6 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      # ---- Optional: skip building on GitHub Actions to avoid disk issues ----
-      # - name: Build and push Docker image locally or on another machine
-      #   uses: docker/build-push-action@v5
-      #   with:
-      #     context: .
-      #     push: true
-      #     tags: ${{ env.IMAGE }}
-
       - name: Deploy to EC2 using Docker Compose
         uses: appleboy/ssh-action@v0.1.6
         with:
@@ -56,20 +48,20 @@ jobs:
             cd genii-assistant
             git pull origin main
 
-            echo "Pulling the latest prebuilt Docker image..."
+            echo "🧹 Cleaning up EC2 space before pulling image..."
+            docker system prune -af --volumes || true
+            sudo journalctl --vacuum-time=3d || true
+
+            echo "🚀 Pulling the latest prebuilt Docker image..."
             docker pull $IMAGE
 
-            echo "Stopping and removing existing containers if any..."
+            echo "🧱 Stopping and removing existing containers if any..."
             docker compose down || true
 
-            echo "Updating docker-compose.yml to use the pulled image..."
-            # Replace image in docker-compose.yml dynamically (optional if already set)
+            echo "🔧 Updating docker-compose.yml to use the pulled image..."
             sed -i "s|image: .*|image: $IMAGE|" docker-compose.yml
 
-            echo "Starting containers with restart policy..."
+            echo "📦 Starting containers with restart policy..."
             docker compose up -d
 
-            echo "Cleaning up unused Docker resources..."
-            docker system prune -af --volumes
-
-            echo "Deployment completed successfully. App should be live at http://<EC2_IP>:${HOST_PORT}"
+            echo "✅ Deployment completed successfully. App should be live at http://<EC2_IP>:${HOST_PORT}"
