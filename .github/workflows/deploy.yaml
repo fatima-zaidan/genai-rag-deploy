@@ -9,63 +9,73 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/genai-assistant:latest
-      NAME: genai-assistant
-      HOST_PORT: 7870        # EC2 host port
-      CONTAINER_PORT: 7860   # Gradio container port
+  IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/genai-assistant:latest
+  NAME: genai-assistant
+  HOST_PORT: 7870        # EC2 host port
+  CONTAINER_PORT: 7860   # Gradio container port
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+steps:
+  - name: Checkout code
+    uses: actions/checkout@v4
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  - name: Log in to Docker Hub
+    uses: docker/login-action@v3
+    with:
+      username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Deploy to EC2 using Docker Compose
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            set -e
+  - name: Deploy to EC2 using Docker Compose
+    uses: appleboy/ssh-action@v0.1.6
+    with:
+      host: ${{ secrets.EC2_HOST }}
+      username: ${{ secrets.EC2_USER }}
+      key: ${{ secrets.EC2_SSH_KEY }}
+      script: |
+        set -e
 
-            IMAGE="${{ env.IMAGE }}"
-            NAME="${{ env.NAME }}"
-            HOST_PORT="${{ env.HOST_PORT }}"
-            CONTAINER_PORT="${{ env.CONTAINER_PORT }}"
+        IMAGE="${{ env.IMAGE }}"
+        NAME="${{ env.NAME }}"
+        HOST_PORT="${{ env.HOST_PORT }}"
+        CONTAINER_PORT="${{ env.CONTAINER_PORT }}"
 
-            echo "🔑 Logging in to Docker Hub on EC2..."
-            echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+        echo "🔑 Logging in to Docker Hub on EC2..."
+        echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
-            cd /home/${{ secrets.EC2_USER }}
-            if [ ! -d "genii-assistant" ]; then
-              git clone https://github.com/fatima-zaidan/genai-rag-deploy.git genii-assistant
-            fi
-            cd genii-assistant
+        cd /home/${{ secrets.EC2_USER }}
+        if [ ! -d "genii-assistant" ]; then
+          git clone https://github.com/fatima-zaidan/genai-rag-deploy.git genii-assistant
+        fi
+        cd genii-assistant
 
-            echo "🔁 Resetting EC2 repo to match remote main branch..."
-            git fetch origin main
-            git reset --hard origin/main
+        echo "🔁 Resetting EC2 repo to match remote main branch..."
+        git fetch origin main
+        git reset --hard origin/main
 
-            echo "🧹 Cleaning up EC2 space before pulling image..."
-            docker system prune -af --volumes || true
-            sudo journalctl --vacuum-time=3d || true
+        echo "🧹 Cleaning up EC2 space before pulling image (AGRESSIVE CLEANUP)..."
+        # 1. Standard Docker Cleanup (removes stopped containers, build cache, unused volumes)
+        docker system prune -af --volumes || true
+        
+        # 2. Aggressive System Cache Cleanup (removes downloaded package archives)
+        sudo apt-get clean || true
+        
+        # 3. Aggressively clear temporary files
+        sudo rm -rf /tmp/* || true
+        sudo rm -rf /var/tmp/* || true
+        
+        # 4. Limit journal logs
+        sudo journalctl --vacuum-time=3d || true
 
-            echo "🚀 Pulling the latest prebuilt Docker image..."
-            docker pull $IMAGE
+        echo "🚀 Pulling the latest prebuilt Docker image..."
+        docker pull $IMAGE
 
-            echo "🧱 Stopping and removing existing containers if any..."
-            docker compose down || true
+        echo "🧱 Stopping and removing existing containers if any..."
+        docker compose down || true
 
-            echo "🔧 Updating docker-compose.yml to use the pulled image..."
-            sed -i "s|image: .*|image: $IMAGE|" docker-compose.yml
+        echo "🔧 Updating docker-compose.yml to use the pulled image..."
+        sed -i "s|image: .*|image: $IMAGE|" docker-compose.yml
 
-            echo "📦 Starting containers with restart policy..."
-            docker compose up -d
+        echo "📦 Starting containers with restart policy..."
+        docker compose up -d
 
-            echo "✅ Deployment completed successfully!"
-            echo "🌍 App should be live at: http://<EC2_IP>:${HOST_PORT}"
+        echo "✅ Deployment completed successfully!"
+        echo "🌍 App should be live at: http://$(curl -s ifconfig.me):${HOST_PORT}"
