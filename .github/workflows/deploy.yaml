@@ -1,4 +1,4 @@
-name: CI/CD to EC2 - Genii Assistant
+name: CI/CD to EC2 - GenAI Assistant
 
 on:
   push:
@@ -38,15 +38,18 @@ jobs:
             HOST_PORT="${{ env.HOST_PORT }}"
             CONTAINER_PORT="${{ env.CONTAINER_PORT }}"
 
-            echo "Logging in to Docker Hub on EC2..."
+            echo "🔑 Logging in to Docker Hub on EC2..."
             echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
             cd /home/${{ secrets.EC2_USER }}
-            if [ ! -d "genai-rag-deploy" ]; then
-              git clone https://github.com/fatima-zaidan/genai-rag-deploy.git genai-rag-deploy
+            if [ ! -d "genii-assistant" ]; then
+              git clone https://github.com/fatima-zaidan/genai-rag-deploy.git genii-assistant
             fi
-            cd genai-rag-deploy
-            git pull origin main
+            cd genii-assistant
+
+            echo "🔁 Resetting EC2 repo to match remote main branch..."
+            git fetch origin main
+            git reset --hard origin/main
 
             echo "🧹 Cleaning up EC2 space before pulling image..."
             docker system prune -af --volumes || true
@@ -64,4 +67,5 @@ jobs:
             echo "📦 Starting containers with restart policy..."
             docker compose up -d
 
-            echo "✅ Deployment completed successfully. App should be live at http://<EC2_IP>:${HOST_PORT}"
+            echo "✅ Deployment completed successfully!"
+            echo "🌍 App should be live at: http://<EC2_IP>:${HOST_PORT}"
