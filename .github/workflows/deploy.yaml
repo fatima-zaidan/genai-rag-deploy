@@ -10,7 +10,7 @@ jobs:
 
     env:
       IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/genai-assistant:latest
-      NAME: genii-assistant
+      NAME: genai-assistant
       HOST_PORT: 7870        # EC2 host port
       CONTAINER_PORT: 7860   # Gradio container port
 
@@ -42,10 +42,10 @@ jobs:
             echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
             cd /home/${{ secrets.EC2_USER }}
-            if [ ! -d "genii-assistant" ]; then
-              git clone https://github.com/fatima-zaidan/genai-rag-deploy.git genii-assistant
+            if [ ! -d "genai-rag-deploy" ]; then
+              git clone https://github.com/fatima-zaidan/genai-rag-deploy.git genai-rag-deploy
             fi
-            cd genii-assistant
+            cd genai-rag-deploy
             git pull origin main
 
             echo "🧹 Cleaning up EC2 space before pulling image..."
