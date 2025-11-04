@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  IMAGE: fatimazaidan/genai-assistant:latest
+  IMAGE: fatimazaidan26/genai-assistant:latest
   NAME: genai-assistant
   HOST_PORT: 8000
   CONTAINER_PORT: 8000
