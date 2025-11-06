@@ -20,21 +20,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Log in to Docker Hub
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-      # Step 3: Build Docker image using multi-stage Dockerfile
-      - name: Build Docker image
-        run: docker build -t $IMAGE .
-
-      # Step 4: Push Docker image to Docker Hub
-      - name: Push Docker image
-        run: docker push $IMAGE
-
       # Step 5: Deploy to EC2
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.7

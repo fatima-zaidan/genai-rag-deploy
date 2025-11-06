@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   web:
     image: fatimazaidan26/genai-assistant:latest
@@ -12,7 +14,7 @@ services:
     restart: always
 
   db:
-    image: postgres:latest
+    image: postgres:16
     container_name: genai_db
     environment:
       POSTGRES_USER: rag_role
