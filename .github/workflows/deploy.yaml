@@ -51,8 +51,8 @@ jobs:
             echo "💽 Pulling latest Docker image..."
             docker pull $IMAGE
 
-            echo "🔧 Updating docker-compose.yml to use the latest image..."
-            sed -i "s|image: .*|image: $IMAGE|" docker-compose.yml
+            echo "🔧 Updating docker-compose.yaml to use the latest image..."
+            sed -i "s|image: .*|image: $IMAGE|" docker-compose.yaml
 
             echo "📦 Starting containers..."
             docker compose up -d
