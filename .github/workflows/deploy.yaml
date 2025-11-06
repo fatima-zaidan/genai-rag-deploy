@@ -20,7 +20,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 5: Deploy to EC2
+      # Step 2: Deploy to EC2
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -34,18 +34,25 @@ jobs:
             IMAGE="${{ env.IMAGE }}"
             HOST_PORT="${{ env.HOST_PORT }}"
             CONTAINER_PORT="${{ env.CONTAINER_PORT }}"
+            PROJECT_DIR="/home/${USER}/genai-assistant"
 
             echo "📂 Updating deployment directory..."
-            if [ ! -d "/home/${USER}/genai-assistant" ]; then
+            if [ ! -d "$PROJECT_DIR" ]; then
               cd /home/${USER}
               git clone https://github.com/fatima-zaidan/genai-rag-deploy.git genai-assistant
             fi
-            cd /home/${USER}/genai-assistant
+
+            cd $PROJECT_DIR
             git fetch origin main
             git reset --hard origin/main
 
             echo "🧹 Cleaning old containers, images, and volumes..."
             docker compose down -v || true
+
+            # 🔥 Remove any leftover containers with same name
+            docker rm -f genai_db || true
+            docker rm -f genai_web || true
+
             docker system prune -af --volumes || true
 
             echo "💽 Pulling latest Docker image..."
